@@ -21,7 +21,7 @@ systems({
     // Dependent systems
     depends: [],
     // More images:  http://images.azk.io
-    image: "azukiapp/ubuntu",
+    image: { docker: "azukiapp/ubuntu" },
     // Steps to execute before running instances
     provision: [],
     workdir: "/azk/#{manifest.dir}",
