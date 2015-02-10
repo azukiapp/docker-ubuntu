@@ -26,6 +26,7 @@ RUN apt-get update \
   && apt-get upgrade -yq \
   && apt-get -yq install \
       build-essential \
+      python \
       ca-certificates \
       curl \
       wget \
