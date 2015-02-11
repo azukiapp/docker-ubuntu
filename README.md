@@ -1,40 +1,53 @@
-[azukiapp/ubuntu](https://registry.hub.docker.com/u/azukiapp/ubuntu/)
-================
+[azukiapp/ubuntu](http://images.azk.io/#/ubuntu)
+==================
 
-Base docker image to run Ubuntu
+Base docker image to run **Linux** applications in [`azk`](http://azk.io)
+
+Versions (tags)
+---
+
+- [`latest`, `trusty`, `14`, `14.04`](https://github.com/azukiapp/docker-ubuntu/blob/master/Dockerfile)
+
+Image content:
+---
 
 - Ubuntu 14.04
 - Git
 - VIM
 
-##azk
+### Usage with `azk`
+
 Example of using that image with the [azk](http://azk.io):
 
-```
+```js
 /**
  * Documentation: http://docs.azk.io/Azkfile.js
  */
-
+ 
 // Adds the systems that shape your system
 systems({
-  "ubuntu": {
+  "my-app": {
     // Dependent systems
-    depends: [],
+    depends: [], // postgres, mysql, mongodb ...
     // More images:  http://images.azk.io
-    image: { docker: "azukiapp/ubuntu" },
+    image: {"docker": "azukiapp/ubuntu"},
     // Steps to execute before running instances
-    provision: [],
+    provision: [
+      // "./script.sh",
+    ],
     workdir: "/azk/#{manifest.dir}",
     shell: "/bin/bash",
-    command: "# command to run app",
+    command: "# command to run app. i.g.: `./start.sh`",
     wait: {"retry": 20, "timeout": 1000},
     mounts: {
       '/azk/#{manifest.dir}': path("."),
     },
     scalable: {"default": 2},
     http: {
-      // ubuntu.azk.dev
       domains: [ "#{system.name}.#{azk.default_domain}" ]
+    },
+    ports: {
+      // http: "8080"
     },
     envs: {
       // set instances variables
@@ -44,11 +57,32 @@ systems({
 });
 ```
 
-Building the base image
------------------------
 
-To create the base image `azukiapp/ubuntu`, execute the following command on the `ubuntu` folder:
+### Usage with `docker`
+
+To create the image `azukiapp/ubuntu`, execute the following command on the docker-ubuntu folder:
 
 ```sh
 $ docker build -t azukiapp/ubuntu .
 ```
+
+To run the image and bind to port 8080:
+
+```sh
+$ docker run -it --rm --name my-app -p 8080:8080 -v "$PWD":/myapp -w /myapp azukiapp/ubuntu script.sh
+```
+
+Logs
+---
+
+```sh
+# with azk
+$ azk logs my-app
+
+# with docker
+$ docker logs <CONTAINER_ID>
+```
+
+## License
+
+Azuki Dockerfiles distributed under the [Apache License](https://github.com/azukiapp/dockerfiles/blob/master/LICENSE).
