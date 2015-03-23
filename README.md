@@ -6,7 +6,9 @@ Base docker image to run **Linux** applications in [`azk`](http://azk.io)
 Versions (tags)
 ---
 
+<versions>
 - [`latest`, `trusty`, `14`, `14.04`](https://github.com/azukiapp/docker-ubuntu/blob/master/Dockerfile)
+</versions>
 
 Image content:
 ---
