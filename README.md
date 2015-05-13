@@ -7,7 +7,7 @@ Versions (tags)
 ---
 
 <versions>
-- [`latest`, `trusty`, `14`, `14.04`](https://github.com/azukiapp/docker-ubuntu/blob/master/Dockerfile)
+- [`latest`, `trusty`, `14`, `14.04`](https://github.com/azukiapp/docker-ubuntu/blob/master/trusty/Dockerfile)
 </versions>
 
 Image content:
